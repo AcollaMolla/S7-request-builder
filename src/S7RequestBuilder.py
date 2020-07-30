@@ -55,10 +55,6 @@ def SortSignalsByDB(signals):
 	signals.sort(key=lambda line: int(line.db))
 	return signals
 
-def PrintSignals(signals):
-	for s in signals:
-		print(str(s.regionLetterCode) + str(s.db) + "." + str(s.offset) + ":" + str(s.datatype))
-
 def RegisterDB(region, db):
 	d = region + db
 	if not d in datablocks:
@@ -150,11 +146,5 @@ def RequestBuilder(source):
 	signals = SplitSignalsByRegion(signals)
 	signals = SplitSignalsByContinousSpace(signals)
 	signals = AddToPDUList(signals)
-
-	print("###############################")
-	for s in signals:
-		print("....................PDU......" + str(GetPDUSize(s)) + " Bytes(including item header)......." + str(len(s)) + " items.........")
-		for sig in s:
-			print("--------------")
-			PrintSignals(sig)
+	return signals
 
